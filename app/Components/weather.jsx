@@ -2,14 +2,14 @@ var React=require('react');
 var WeatherForm=require('weatherform');
 var WeatherMessage=require('weathermessage');
 var openWeatherMap=require('openWeatherMap');
+var ErrorModal=require("ErrorModal");
 
 var weather=React.createClass(
     {
         getInitialState:function()
         {
             return{
-                 isLoading:false
-            }
+                 isLoading:false                }
                
             
             
@@ -18,7 +18,9 @@ var weather=React.createClass(
         {
             var that=this;
             this.setState({
-                isLoading:true
+                isLoading:true,
+                errorMessage:undefined
+
             });
             openWeatherMap.getTemp(city).then(
                 function(temp)
@@ -31,10 +33,15 @@ var weather=React.createClass(
                         }
                     );
                 },
-                function(err)
+                function(e)
                 {
-                    that.setState({isLoading:false});
-                    alert(err);
+                    debugger;
+                    that.setState(
+                        {
+                            isLoading:false,
+                            errorMessage: e.message
+                        });
+                    //alert(err);
                 }
             );
            
@@ -46,21 +53,33 @@ var weather=React.createClass(
             {
                 if(isLoading)
                 {
-                    return <h3>Loading ...</h3>
+                    return <h3 className='text-center'>Loading ...</h3>
                 }
                 else if(temp && city)
                 {
                     return <WeatherMessage city={city} temp={temp}/>;
                 }
             }
-            var {temp,city,isLoading}=this.state;
+            function renderError()
+            {
+                if(typeof errorMessage==='string')
+                {
+                     return(
+                         <ErrorModal message={errorMessage}/>
+                         
+                     )
+                    
+                }
+            }
+            var {temp,city,isLoading,errorMessage}=this.state;
             return(
                 
                 <div>
-                <h3>Get Weather</h3>
+                <h1 className='text-center'>Get Weather</h1>
                 <WeatherForm onSearch={this.handleSearch}/>
                 {/* <WeatherMessage city={city} temp={temp}/> */}
                 {renderMessage()}
+                {renderError()}
                 </div>
             )
         }

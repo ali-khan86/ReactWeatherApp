@@ -7,8 +7,13 @@ var main=React.createClass({
         return(
             <div>
             <Nav/>
-            <h1>Main Component</h1>
+            <div className='row'>
+            <div className='comumn large-4 medium-6 small-centered'>
             {this.props.children}
+            </div>
+            
+            </div>
+            
             </div>
         );
     }
