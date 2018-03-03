@@ -7,6 +7,10 @@ var weather=require('weather');
 var about=require('about');
 var example=require('example');
 
+//load Foundation
+require('style!css!foundation-sites/dist/foundation.min.css');
+$(document).foundation();
+
 
 var divElement=document.getElementById('wraper');
  ReactDOM.render(
