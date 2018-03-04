@@ -10,8 +10,8 @@ var example=()=>
             
             <p>Here are few locations to try</p>
             <ol>
-                <li> <Link to='?/location=California'> California, CA </Link> </li>
-                <li><Link to='?/location=Philadalphia'>Philadalphia , PA</Link></li>
+                <li> <Link to='/?location=California'> California, CA </Link> </li>
+                <li><Link to='/?location=Philadelphia'>Philadelphia , PA</Link></li>
                 <li><Link to='/?location=Rio'>Rio, Brazil </Link></li>
             </ol>
         </div>
