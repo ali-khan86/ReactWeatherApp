@@ -1,4 +1,6 @@
 var React=require('react');
+var ReactDom=require('react-dom');
+var ReactDOMServer=require('react-dom/server');
 var errorModal=React.createClass(
     {
         getDefaultProps:function()
@@ -15,23 +17,29 @@ var errorModal=React.createClass(
         },
         componentDidMount:function()
         {
+            var {title,message}=this.props;
+            var modalMarkup=(
+                <div id='error-modal' className='reveal text-center' data-reveal="">
+                    <h3>{title}</h3>
+                    <p>{message}</p>
+                    <p>
+                        <button className='button hollow tiny' data-close="">
+                            Okay
+                        </button>
+                    </p>
+        
+                    </div>
+                    );
+                    var $modal=$(ReactDOMServer.renderToString(modalMarkup));
+                    $(ReactDom.findDOMNode(this)).html($modal);
             var modal=new Foundation.Reveal($('#error-modal'));
             modal.open();
         },
         render:function()
         {
-            var {title,message}=this.props;
+            
             return(
-        <div id='error-modal' className='reveal text-center' data-reveal="">
-            <h3>{title}</h3>
-            <p>{message}</p>
-            <p>
-                <button className='button hollow tiny' data-close="">
-                    Okay
-                </button>
-            </p>
-
-            </div>
+                <div></div>
             );
             
         }
